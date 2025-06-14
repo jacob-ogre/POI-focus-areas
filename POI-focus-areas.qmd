@@ -1,0 +1,121 @@
+---
+title: "People of Interior: Focus areas"
+subtitle: "Poll results"
+author: "Jacob Malcom"
+date: "2025-06-14"
+format: 
+  html:
+    code-fold: true
+editor_options: 
+  chunk_output_type: console
+  echo: false
+  include: false
+---
+
+```{r, echo=FALSE, include=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(googlesheets4)
+library(htmltools)
+library(tidyverse)
+```
+
+----
+
+We fielded a short poll to determine the areas of greatest interest to the [LinkedIn People of Interior group](https://www.linkedin.com/groups/13267119/). The results are shared below:
+
+
+```{r  echo=FALSE, include=FALSE}
+dat <- read_sheet("https://docs.google.com/spreadsheets/d/1jWmFviisMfDAYlNbXgpNAR12zkll-tqnYhcG6SuLJF8/edit?gid=1539050326#gid=1539050326")
+
+names(dat) <- c("time", "jobs", "social", "still_around", "comms", "retire", "network", "other")
+```
+
+# Jobs
+"We can help each other watch for - and help people land, as we reach across our networks - jobs with a focus on the kinds of work we have done - or still do - for Interior."
+
+```{r  echo=FALSE, include=TRUE}
+j <- table(factor(dat$jobs, levels = 1:5)) |> data.frame()
+names(j) <- c("rating", "votes")
+
+ggplot(j, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Social engagement
+"Some former fed groups are facilitating social engagements, whether virtual or to help people stay connected more locally. We could do the same for people who are work colleagues and friends looking for a familiar anchor. **Bonus:** We might consider setting up some regional leads and approaches!"
+
+```{r  echo=FALSE, include=TRUE}
+s <- table(factor(dat$social, levels = 1:5)) |> data.frame()
+names(s) <- c("rating", "votes")
+
+ggplot(s, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Who is still around?
+"One of the hardest things at this time (June 2025) is knowing who is still around and who has departed or will be soon, or even what general staffing levels are like across the Department. We could try to fill in some of the gaps and make connections."
+
+```{r  echo=FALSE, include=TRUE}
+w <- table(factor(dat$still_around, levels = 1:5)) |> data.frame()
+names(w) <- c("rating", "votes")
+
+ggplot(w, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Communications and action
+"There is a lot going on. A lot. We could help each other watch for news that's particularly important to Interior and share it, perhaps with a focus on actions we can take. Or maybe everyone is already overloaded?"
+
+```{r  echo=FALSE, include=TRUE}
+ca <- table(factor(dat$comms, levels = 1:5)) |> data.frame()
+names(ca) <- c("rating", "votes")
+
+ggplot(ca, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Retirement
+"There may not be an Interior-specific aspect of retirement like other options thus far, but with so many people taking early retirement options, this could be an options."
+
+```{r  echo=FALSE, include=TRUE}
+r <- table(factor(dat$retire, levels = 1:5)) |> data.frame()
+names(r) <- c("rating", "votes")
+
+ggplot(r, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Network-of-networks
+"People of Interior can focus on connecting folks here with other groups, whether on LinkedIn or elsewhere, who focus on particular topics that aren't unique to Interior and its mission, culture, and people."
+
+```{r  echo=FALSE, include=TRUE}
+n <- table(factor(dat$network, levels = 1:5)) |> data.frame()
+names(n) <- c("rating", "votes")
+
+ggplot(n, aes(x=rating, y=votes)) +
+  geom_bar(stat = "identity") +
+  theme_tufte(base_size = 12, base_family = "sans")
+```
+
+# Something else!
+"Is there something not covered above that you think People of Interior might really enjoy? Share it here!"
+
+Responses thus far:
+
+```{r echo=FALSE, results='asis'}
+string.list <- na.omit(dat$other)
+cat(paste('-', string.list), sep = '\n')
+```
+
+<br>
+
+----
+<center>
+[![](NI_logo.png){width=3in}](https://www.nextinterior.org)
+</center>
