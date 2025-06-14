@@ -18,6 +18,8 @@ library(ggthemes)
 library(googlesheets4)
 library(htmltools)
 library(tidyverse)
+
+gs4_deauth()
 ```
 
 ----
